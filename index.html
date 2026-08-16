@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+<title>Défi24 — MVP</title>
+<link rel="manifest" href="manifest.json">
+<style>
+:root{--bg:#080c17;--card:#12192b;--card2:#18213a;--text:#f7f8ff;--muted:#9da7bf;--accent:#7c5cff;--accent2:#22d3a3;--danger:#ff637d}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 50% -10%,#30245f 0,#080c17 45%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+button,input,textarea{font:inherit}.app{max-width:520px;margin:auto;padding:16px 15px 96px}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.logo{font-size:25px;font-weight:950}.pill{background:#1a2440;border:1px solid #2b3757;border-radius:999px;padding:8px 11px;font-size:13px;font-weight:800}
+.hero{background:linear-gradient(145deg,#7658ff,#432bb2);border-radius:28px;padding:20px;box-shadow:0 18px 50px #0006}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;opacity:.8}.hero h1{font-size:32px;line-height:1.02;margin:9px 0}.hero p{line-height:1.45;color:#eeeaff}
+.dooffy{display:flex;gap:12px;align-items:center;background:#ffffff18;border:1px solid #ffffff25;border-radius:18px;padding:11px;margin-top:14px}.dooffy-avatar{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,#fff,#d9d3ff);display:grid;place-items:center;color:#4d36bd;font-size:25px;font-weight:900;flex:none}.dooffy small{display:block;opacity:.75;margin-bottom:2px}
+.challenge{margin-top:16px;background:#fff;color:#111525;border-radius:21px;padding:16px}.timer{font-size:29px;font-weight:950;margin:8px 0 12px}.btn{border:0;border-radius:15px;padding:13px 15px;font-weight:900;cursor:pointer;width:100%}.primary{background:#111525;color:#fff}.secondary{background:#273451;color:#fff}.green{background:var(--accent2);color:#061613;margin-top:9px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.card{background:var(--card);border:1px solid #222d49;border-radius:20px;padding:15px}.big{font-size:27px;font-weight:950}.muted{color:var(--muted);font-size:13px}.section{margin-top:21px}.section h2{font-size:18px;margin:0 0 10px}.rank{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #202a42}.rank:last-child{border:0}.avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:#2a3656;font-weight:900}.score{margin-left:auto;font-weight:900}.friendrow{display:flex;gap:8px}.friend{flex:1;text-align:center;background:var(--card);border:1px solid #222d49;border-radius:17px;padding:12px}.friend .avatar{margin:auto auto 6px}.feed{display:grid;gap:10px}.post{background:var(--card);border:1px solid #222d49;border-radius:20px;padding:14px}.posthead{display:flex;align-items:center;gap:9px}.postbody{margin:12px 0;line-height:1.4}.actions{display:flex;gap:8px}.actions button{flex:1;border:0;border-radius:12px;padding:9px;background:var(--card2);color:var(--text);font-weight:800}
+textarea{width:100%;min-height:90px;background:#0d1424;color:var(--text);border:1px solid #293652;border-radius:14px;padding:12px;resize:vertical}input[type=file]{width:100%;margin:10px 0}.modal{position:fixed;inset:0;background:#0009;display:none;align-items:flex-end;z-index:10}.modal.open{display:flex}.sheet{width:100%;max-width:520px;margin:auto;background:#11192a;border-radius:24px 24px 0 0;padding:18px;border:1px solid #293652}.nav{position:fixed;left:0;right:0;bottom:0;background:#0b1120ee;backdrop-filter:blur(12px);border-top:1px solid #222c45;z-index:5}.navin{max-width:520px;margin:auto;display:flex;justify-content:space-around;padding:9px}.nav button{background:none;border:0;color:#aab3ca;font-size:11px}.toast{position:fixed;left:50%;bottom:78px;transform:translate(-50%,20px);background:#fff;color:#111525;padding:11px 16px;border-radius:999px;font-weight:900;opacity:0;transition:.2s;z-index:20;white-space:nowrap}.toast.on{opacity:1;transform:translate(-50%,0)}
+.onboard{position:fixed;inset:0;background:#080c17;z-index:30;display:grid;place-items:center;padding:22px}.onboard.hide{display:none}.onboardbox{max-width:480px;text-align:center}.onboardbox h1{font-size:38px;margin:10px 0}.choice{display:grid;gap:9px;margin:18px 0}.choice button{background:var(--card);color:var(--text);border:1px solid #293652;border-radius:15px;padding:13px;font-weight:800}.choice button.selected{border-color:var(--accent);background:#241b50}
+@media(min-width:700px){body{padding-top:15px}.nav{bottom:15px}.navin{border-radius:18px}}
+</style>
+</head>
+<body>
+<div id="onboard" class="onboard">
+  <div class="onboardbox">
+    <div class="dooffy-avatar" style="margin:auto">⚡</div>
+    <h1>Bienvenue sur Défi24</h1>
+    <p class="muted">24 heures. 1 défi. 1 action réelle.</p>
+    <div class="choice" id="choices">
+      <button data-v="fun">🎉 M'amuser</button>
+      <button data-v="social">👥 Rencontrer / échanger</button>
+      <button data-v="courage">🔥 Sortir de ma zone de confort</button>
+      <button data-v="wellbeing">🌱 Faire du bien</button>
+      <button data-v="creative">🎨 Créer quelque chose</button>
+    </div>
+    <button class="btn primary" id="start">Commencer</button>
+  </div>
+</div>
+
+<main class="app">
+<header class="top"><div class="logo">⚡ Défi24</div><div class="pill">🔥 <span id="streak">0</span> jour</div></header>
+
+<section class="hero">
+  <div class="eyebrow">Défi du jour · <span id="challengeNo">001</span></div>
+  <h1 id="challengeTitle">Ton défi arrive.</h1>
+  <p id="challengeText">Choisis ton univers pour recevoir un défi adapté.</p>
+  <div class="dooffy">
+    <div class="dooffy-avatar">⚡</div>
+    <div><small>Dooffy</small><b id="dooffyText">Je suis là pour te faire passer à l'action.</b></div>
+  </div>
+  <div class="challenge">
+    <div class="muted">Temps restant</div>
+    <div class="timer" id="timer">23:59:59</div>
+    <button class="btn primary" id="complete">✅ J'ai relevé le défi</button>
+    <button class="btn green" id="proof">📸 Ajouter une preuve</button>
+  </div>
+</section>
+
+<div class="grid">
+  <div class="card"><div class="big" id="points">0</div><div class="muted">XP</div></div>
+  <div class="card"><div class="big" id="level">Niveau 1</div><div class="muted">progression</div></div>
+</div>
+
+<section class="section">
+<h2>🏆 Classement</h2>
+<div class="card">
+  <div class="rank"><div class="avatar">L</div><b>Léa</b><span class="score">2 910</span></div>
+  <div class="rank"><div class="avatar">M</div><b>Max</b><span class="score">2 540</span></div>
+  <div class="rank"><div class="avatar">G</div><b>Toi</b><span class="score" id="rankpoints">0</span></div>
+</div>
+</section>
+
+<section class="section">
+<h2>👥 Tes amis</h2>
+<div class="friendrow">
+ <div class="friend"><div class="avatar">L</div><b>Léa</b><div class="muted">🔥14</div></div>
+ <div class="friend"><div class="avatar">M</div><b>Max</b><div class="muted">🔥11</div></div>
+ <div class="friend"><div class="avatar">S</div><b>Sam</b><div class="muted">🔥9</div></div>
+</div>
+</section>
+
+<section class="section">
+<h2>🎥 Défis relevés</h2>
+<div id="feed" class="feed"><div class="post"><div class="muted">Le feed se construit avec tes défis et ceux de la communauté.</div></div></div>
+</section>
+
+<section class="section">
+<div class="card">
+<h2>🧠 Mode anti-scroll</h2>
+<p class="muted">Défi24 n'est pas conçu pour te garder à scroller. L'objectif est de quitter l'écran et de faire quelque chose dans la vraie vie.</p>
+<button class="btn secondary" id="focus">🚀 Passer à l'action</button>
+</div>
+</section>
+</main>
+
+<nav class="nav"><div class="navin">
+<button onclick="scrollToTop()">🏠<br>Accueil</button>
+<button onclick="openCreate()">➕<br>Créer</button>
+<button onclick="scrollToFeed()">🎥<br>Feed</button>
+<button onclick="showProfile()">👤<br>Profil</button>
+</div></nav>
+
+<div id="modal" class="modal"><div class="sheet">
+<h2 id="modalTitle">Créer</h2>
+<p class="muted">Ajoute un défi ou une preuve. Les données restent locales dans ce MVP.</p>
+<textarea id="modalText" placeholder="Écris ton idée..."></textarea>
+<input id="photo" type="file" accept="image/*" capture="environment">
+<button class="btn primary" id="modalAction">Publier</button>
+<button class="btn secondary" style="margin-top:8px" onclick="closeModal()">Fermer</button>
+</div></div>
+<div id="toast" class="toast"></div>
+
+<script>
+const challenges={
+ fun:[["Le mini imprévu","Fais aujourd'hui une activité amusante que tu n'avais pas prévue.","Trouve un petit moment de fun et raconte-le à quelqu'un."]],
+ social:[["Le premier pas","Envoie un message positif à quelqu'un avec qui tu n'as pas parlé depuis longtemps.","Une petite action peut relancer une vraie conversation."]],
+ courage:[["Le pas courageux","Fais une petite chose que tu repousses depuis trop longtemps.","Pas besoin d'être énorme : le but est d'agir."]],
+ wellbeing:[["Le geste qui compte","Fais aujourd'hui quelque chose de gentil pour une personne qui ne s'y attend pas.","Fais-le sans attendre de retour."]],
+ creative:[["10 minutes de création","Crée quelque chose pendant 10 minutes : dessin, photo, musique, texte ou objet.","Le résultat n'a pas besoin d'être parfait."]]
+};
+let state=JSON.parse(localStorage.getItem("defi24_mvp")||"null")||{theme:null,points:0,streak:0,done:false,posts:[],challengeDay:null};
+const $=id=>document.getElementById(id);
+function save(){localStorage.setItem("defi24_mvp",JSON.stringify(state))}
+function toast(t){$("toast").textContent=t;$("toast").classList.add("on");clearTimeout(window._toast);window._toast=setTimeout(()=>$("toast").classList.remove("on"),1800)}
+function render(){
+ $("points").textContent=state.points.toLocaleString("fr-FR");$("rankpoints").textContent=state.points.toLocaleString("fr-FR");
+ $("streak").textContent=state.streak;$("level").textContent="Niveau "+(Math.floor(state.points/500)+1);
+ const key=state.theme||"fun", c=challenges[key][0]; $("challengeTitle").textContent=c[0];$("challengeText").textContent=c[1];
+ $("dooffyText").textContent=state.done?"Bravo ! Maintenant, profite de ta victoire et reviens demain.":"Je te propose une action simple. À toi de jouer.";
+ $("complete").disabled=state.done;$("complete").textContent=state.done?"🎉 Défi validé":"✅ J'ai relevé le défi";
+ $("feed").innerHTML=state.posts.length?state.posts.map((p,i)=>`<div class="post"><div class="posthead"><div class="avatar">G</div><b>Toi</b><span class="muted">· aujourd'hui</span></div><div class="postbody">${escapeHtml(p.text)}</div><div class="actions"><button onclick="like(${i})">❤️ ${p.likes}</button><button onclick="sharePost(${i})">🚀 Partager</button></div></div>`).join(""):'<div class="post"><div class="muted">Le feed se construit avec tes défis et ceux de la communauté.</div></div>';
+ save();
+}
+function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function newDay(){
+ const today=new Date().toISOString().slice(0,10);
+ if(state.challengeDay!==today){state.challengeDay=today;state.done=false;save()}
+}
+$("choices").querySelectorAll("button").forEach(b=>b.onclick=()=>{ $("choices").querySelectorAll("button").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");state.theme=b.dataset.v;});
+$("start").onclick=()=>{if(!state.theme){toast("Choisis un univers 🙂");return}state.challengeDay=new Date().toISOString().slice(0,10);save();$("onboard").classList.add("hide");render();toast("Dooffy t'attend ⚡")};
+$("complete").onclick=()=>{if(state.done)return;state.done=true;state.points+=250;state.streak++;state.posts.unshift({text:"J'ai relevé mon défi du jour ⚡",likes:0});render();toast("🎉 +250 XP ! Défi validé")};
+$("proof").onclick=()=>openProof();
+$("focus").onclick=()=>{document.body.style.overflow="hidden";toast("📵 Pose le téléphone. Passe à l'action !");setTimeout(()=>document.body.style.overflow="",2200)};
+function openProof(){ $("modalTitle").textContent="📸 Preuve du défi";$("modalText").placeholder="Ajoute une courte description de ta preuve...";$("modalAction").textContent="Ajouter au feed";$("modalAction").onclick=publishProof;$("modal").classList.add("open")}
+function openCreate(){ $("modalTitle").textContent="➕ Créer un défi";$("modalText").placeholder="Ex : Fais une photo d'un endroit que tu n'as jamais remarqué...";$("modalAction").textContent="Créer";$("modalAction").onclick=publishCreate;$("modal").classList.add("open")}
+function closeModal(){$("modal").classList.remove("open");$("modalText").value="";$("photo").value=""}
+function publishProof(){const text=$("modalText").value.trim()||"J'ai relevé mon défi du jour ⚡";state.posts.unshift({text,likes:0});closeModal();render();toast("📸 Preuve ajoutée")}
+function publishCreate(){const text=$("modalText").value.trim();if(!text){toast("Écris ton défi");return}state.posts.unshift({text:"Défi créé : "+text,likes:0});closeModal();render();toast("⚡ Défi créé")}
+function like(i){state.posts[i].likes++;render()}
+async function sharePost(i){const text=state.posts[i].text+" — Défi24";try{if(navigator.share)await navigator.share({title:"Défi24",text});else{await navigator.clipboard.writeText(text);toast("Texte copié")}}catch(e){}}
+function scrollToTop(){window.scrollTo({top:0,behavior:"smooth"})}
+function scrollToFeed(){$("feed").scrollIntoView({behavior:"smooth",block:"center"})}
+function showProfile(){toast("👤 Profil : "+state.points+" XP · Niveau "+(Math.floor(state.points/500)+1))}
+let sec=86399;setInterval(()=>{sec=Math.max(0,sec-1);const h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s=sec%60;$("timer").textContent=[h,m,s].map(v=>String(v).padStart(2,"0")).join(":")},1000);
+newDay();if(state.theme)$("onboard").classList.add("hide");render();
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "Défi24",
+  "short_name": "Défi24",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#080c17",
+  "theme_color": "#0b1020",
+  "lang": "fr"
+}
