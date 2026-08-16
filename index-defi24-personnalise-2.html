@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1020">
+<title>Défi24 – Dooffy</title>
+<style>
+:root{--bg:#080c17;--card:#12192b;--text:#fff;--muted:#9ba7c0;--primary:#7c5cff;--secondary:#00d4ff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#080c17,#10172a);color:var(--text);font-family:Arial,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer;border:0}.app{max-width:520px;margin:auto;min-height:100vh;padding-bottom:90px}
+header{position:sticky;top:0;z-index:20;background:rgba(8,12,23,.92);backdrop-filter:blur(12px);padding:16px;border-bottom:1px solid #202944}
+.logo{display:flex;align-items:center;justify-content:space-between}.logo h1{margin:0;font-size:25px}.logo span{color:var(--secondary)}.points{background:#18213a;padding:8px 12px;border-radius:20px;font-weight:bold}
+.hero{margin:16px;padding:20px;border-radius:24px;background:linear-gradient(145deg,#7658ff,#432bb5);box-shadow:0 15px 40px rgba(77,51,200,.25)}
+.dooffy{display:flex;gap:14px;align-items:center}.dooffy-avatar{width:75px;height:75px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:42px;flex-shrink:0}
+.hero h2{margin:0 0 7px;font-size:21px}.hero p{margin:0;opacity:.9;line-height:1.4}
+.card{margin:16px;padding:18px;background:var(--card);border:1px solid #202944;border-radius:20px}.card h3{margin-top:0}
+label{display:block;margin:14px 0 7px;color:var(--muted);font-size:14px}
+select,input{width:100%;padding:13px;border-radius:12px;border:1px solid #2a3554;background:#0d1424;color:#fff;outline:none}
+.primary{width:100%;margin-top:16px;padding:14px;border-radius:14px;background:linear-gradient(90deg,var(--primary),#9b67ff);color:#fff;font-weight:bold}
+.secondary{width:100%;padding:13px;border-radius:14px;background:#202b47;color:#fff;font-weight:bold}
+.challenge{background:#fff;color:#111827;border-radius:20px;padding:20px;margin-top:15px}.challenge .tag{display:inline-block;background:#ece8ff;color:#6047d9;padding:6px 10px;border-radius:20px;font-size:12px;font-weight:bold}
+.challenge h4{font-size:21px;margin:14px 0 8px}.challenge p{line-height:1.45}.challenge button{width:100%;padding:13px;border-radius:12px;background:#111827;color:#fff;font-weight:bold}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);background:rgba(10,15,28,.96);border-top:1px solid #202944;display:grid;grid-template-columns:repeat(3,1fr);padding:10px;z-index:30}
+.nav button{background:none;color:#9ba7c0;padding:8px}.nav button.active{color:#fff}.profile{text-align:center}
+.profile-avatar{width:90px;height:90px;margin:auto;border-radius:50%;background:linear-gradient(145deg,#7658ff,#00d4ff);display:flex;align-items:center;justify-content:center;font-size:48px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.stat{background:#18213a;padding:12px 5px;border-radius:14px}.stat strong{display:block;font-size:20px}.stat span{color:var(--muted);font-size:11px}
+.toast{position:fixed;top:75px;left:50%;transform:translateX(-50%);background:#18213a;border:1px solid #34415f;padding:12px 18px;border-radius:30px;z-index:50;display:none}
+.section{display:none}.section.active{display:block}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="logo"><h1>Défi<span>24</span></h1><div class="points">⭐ <span id="points">0</span></div></div></header>
+
+<section id="home" class="section active">
+<div class="hero"><div class="dooffy"><div class="dooffy-avatar">🤖</div><div><h2 id="dooffyTitle">Salut 👋 Moi c'est Dooffy !</h2><p id="dooffyMessage">Je vais te proposer des défis qui te correspondent.</p></div></div></div>
+<div class="card"><h3>🎯 Ton défi du moment</h3><div class="challenge"><span class="tag" id="challengeTag">PERSONNALISÉ</span><h4 id="challengeTitle">Complète ton profil pour recevoir ton premier défi.</h4><p id="challengeDescription">Dis-moi ce que tu aimes et Dooffy adaptera les défis à ton profil.</p><button onclick="completeChallenge()">J'ai relevé le défi 🚀</button></div></div>
+</section>
+
+<section id="personalization" class="section">
+<div class="card"><h2>🧠 Personnalise Dooffy</h2><p style="color:var(--muted)">Plus tu me donnes d'informations, plus les défis seront adaptés à toi.</p>
+<label>Ton type de défi préféré</label><select id="preference"><option value="fun">😂 Fun / drôle</option><option value="sport">🏃 Sport</option><option value="social">👥 Social</option><option value="creative">🎨 Créatif</option><option value="discovery">🌍 Découverte</option><option value="courage">🔥 Sortir de ma zone de confort</option></select>
+<label>Ton niveau</label><select id="level"><option value="easy">🟢 Tranquille</option><option value="medium">🟠 Motivé</option><option value="hard">🔴 Hardcore</option></select>
+<label>Ce que tu veux améliorer</label><select id="goal"><option value="fun">M'amuser davantage</option><option value="confidence">Prendre confiance</option><option value="social">Rencontrer des gens</option><option value="activity">Bouger davantage</option><option value="creativity">Être plus créatif</option><option value="adventure">Vivre plus d'expériences</option></select>
+<button class="primary" onclick="saveProfile()">✨ Créer mes défis personnalisés</button>
+</div>
+</section>
+
+<section id="profile" class="section">
+<div class="card profile"><div class="profile-avatar">🤖</div><h2>Mon profil</h2><p style="color:var(--muted)">Ton profil Défi24</p>
+<div class="stats"><div class="stat"><strong id="statPoints">0</strong><span>Points</span></div><div class="stat"><strong id="statChallenges">0</strong><span>Défis</span></div><div class="stat"><strong id="statLevel">1</strong><span>Niveau</span></div></div></div>
+<div class="card"><h3>⚙️ Mes préférences</h3><p id="profilePreference">Non définies</p><p id="profileLevel">Non défini</p><p id="profileGoal">Non défini</p><button class="secondary" onclick="showSection('personalization')">Modifier mes préférences</button></div>
+</section>
+</div>
+
+<div class="toast" id="toast"></div>
+<nav class="nav"><button id="navHome" class="active" onclick="showSection('home')">🏠<br>Accueil</button><button id="navPersonalization" onclick="showSection('personalization')">🧠<br>Dooffy</button><button id="navProfile" onclick="showSection('profile')">👤<br>Profil</button></nav>
+
+<script>
+let profile=JSON.parse(localStorage.getItem("defi24Profile")||"null");
+let points=Number(localStorage.getItem("defi24Points")||0);
+let challenges=Number(localStorage.getItem("defi24Challenges")||0);
+
+const challengesData={
+fun:{easy:{title:"Fais rire quelqu'un aujourd'hui 😂",description:"Envoie à un ami quelque chose qui va vraiment le faire sourire.",tag:"FUN"},medium:{title:"Fais une action complètement spontanée 😎",description:"Pendant les prochaines 24 heures, fais quelque chose que tu n'avais pas prévu.",tag:"SPONTANÉ"},hard:{title:"Fais rire 3 personnes dans la vraie vie 🔥",description:"Ton objectif : provoquer au moins trois vrais sourires aujourd'hui.",tag:"HARDCORE"}},
+sport:{easy:{title:"Marche 20 minutes 🚶",description:"Mets tes écouteurs, sors et marche pendant au moins 20 minutes.",tag:"SPORT"},medium:{title:"Fais 30 minutes d'activité 🏃",description:"Course, vélo, marche rapide ou entraînement : à toi de choisir.",tag:"SPORT"},hard:{title:"Challenge physique de 45 minutes 🔥",description:"45 minutes d'activité physique. Tu choisis ton activité.",tag:"HARDCORE"}},
+social:{easy:{title:"Parle à quelqu'un que tu connais peu 👋",description:"Commence une vraie conversation avec une personne avec qui tu échanges rarement.",tag:"SOCIAL"},medium:{title:"Propose une activité à quelqu'un 🤝",description:"Envoie un message et propose une activité réelle à faire ensemble.",tag:"SOCIAL"},hard:{title:"Fais une nouvelle rencontre 🔥",description:"Va dans un endroit où tu peux rencontrer de nouvelles personnes et lance une conversation.",tag:"HARDCORE"}},
+creative:{easy:{title:"Crée quelque chose en 15 minutes 🎨",description:"Dessin, photo, vidéo, musique, texte... aucune règle.",tag:"CRÉATIF"},medium:{title:"Crée et partage quelque chose 📸",description:"Réalise une création originale puis partage-la avec quelqu'un.",tag:"CRÉATIF"},hard:{title:"Crée quelque chose que personne n'attend 🔥",description:"Tu as 24 heures pour créer quelque chose d'original et surprenant.",tag:"HARDCORE"}},
+discovery:{easy:{title:"Découvre un nouvel endroit 🌍",description:"Va dans un endroit de ta ville où tu n'es jamais allé.",tag:"DÉCOUVERTE"},medium:{title:"Fais quelque chose pour la première fois 🗺️",description:"Trouve une activité que tu n'as encore jamais essayée.",tag:"AVENTURE"},hard:{title:"Une expérience totalement nouvelle 🔥",description:"Pendant 24 heures, sors complètement de ta routine.",tag:"HARDCORE"}},
+courage:{easy:{title:"Fais une petite chose que tu repousses 💪",description:"Choisis une chose simple que tu repousses depuis quelque temps et fais-la.",tag:"COURAGE"},medium:{title:"Ose faire quelque chose qui te met mal à l'aise 🔥",description:"Choisis un défi raisonnable qui te sort de ta zone de confort.",tag:"COURAGE"},hard:{title:"Ton plus gros défi personnel en 24h 🔥",description:"Choisis une action importante que tu évites et fais le premier vrai pas.",tag:"HARDCORE"}}
+};
+
+function showSection(section){
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.getElementById(section).classList.add("active");
+document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+if(section==="home")document.getElementById("navHome").classList.add("active");
+if(section==="personalization")document.getElementById("navPersonalization").classList.add("active");
+if(section==="profile")document.getElementById("navProfile").classList.add("active");
+updateProfileDisplay();
+}
+
+function saveProfile(){
+profile={preference:document.getElementById("preference").value,level:document.getElementById("level").value,goal:document.getElementById("goal").value};
+localStorage.setItem("defi24Profile",JSON.stringify(profile));
+generateChallenge();showToast("✨ Dooffy a compris ton profil !");
+setTimeout(()=>showSection("home"),700);
+}
+
+function generateChallenge(){
+if(!profile)return;
+const data=challengesData[profile.preference]?.[profile.level]||challengesData.fun.easy;
+document.getElementById("challengeTag").textContent=data.tag;
+document.getElementById("challengeTitle").textContent=data.title;
+document.getElementById("challengeDescription").textContent=data.description;
+document.getElementById("dooffyTitle").textContent="J'ai préparé ton défi 😎";
+document.getElementById("dooffyMessage").textContent="Je l'ai choisi selon tes préférences. À toi de jouer !";
+}
+
+function completeChallenge(){
+if(!profile){showToast("🧠 Personnalise d'abord ton profil !");showSection("personalization");return;}
+points+=24;challenges++;
+localStorage.setItem("defi24Points",points);localStorage.setItem("defi24Challenges",challenges);
+updateProfileDisplay();showToast("🎉 Défi terminé ! +24 points");setTimeout(generateChallenge,800);
+}
+
+function updateProfileDisplay(){
+document.getElementById("points").textContent=points;
+document.getElementById("statPoints").textContent=points;
+document.getElementById("statChallenges").textContent=challenges;
+document.getElementById("statLevel").textContent=Math.floor(points/100)+1;
+if(profile){
+const names={fun:"😂 Fun / drôle",sport:"🏃 Sport",social:"👥 Social",creative:"🎨 Créatif",discovery:"🌍 Découverte",courage:"🔥 Sortir de ma zone de confort"};
+const levels={easy:"🟢 Tranquille",medium:"🟠 Motivé",hard:"🔴 Hardcore"};
+const goals={fun:"M'amuser davantage",confidence:"Prendre confiance",social:"Rencontrer des gens",activity:"Bouger davantage",creativity:"Être plus créatif",adventure:"Vivre plus d'expériences"};
+document.getElementById("profilePreference").textContent="🎯 Préférence : "+names[profile.preference];
+document.getElementById("profileLevel").textContent="⚡ Niveau : "+levels[profile.level];
+document.getElementById("profileGoal").textContent="🚀 Objectif : "+goals[profile.goal];
+document.getElementById("preference").value=profile.preference;
+document.getElementById("level").value=profile.level;
+document.getElementById("goal").value=profile.goal;
+}
+}
+
+function showToast(message){
+const toast=document.getElementById("toast");toast.textContent=message;toast.style.display="block";
+setTimeout(()=>toast.style.display="none",2200);
+}
+updateProfileDisplay();if(profile)generateChallenge();
+</script>
+</body>
+</html>
