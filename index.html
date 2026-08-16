@@ -2,156 +2,132 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0b1020">
-<title>Défi24 — MVP</title>
-<link rel="manifest" href="manifest.json">
+<title>Défi24 – Dooffy</title>
 <style>
-:root{--bg:#080c17;--card:#12192b;--card2:#18213a;--text:#f7f8ff;--muted:#9da7bf;--accent:#7c5cff;--accent2:#22d3a3;--danger:#ff637d}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 50% -10%,#30245f 0,#080c17 45%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
-button,input,textarea{font:inherit}.app{max-width:520px;margin:auto;padding:16px 15px 96px}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.logo{font-size:25px;font-weight:950}.pill{background:#1a2440;border:1px solid #2b3757;border-radius:999px;padding:8px 11px;font-size:13px;font-weight:800}
-.hero{background:linear-gradient(145deg,#7658ff,#432bb2);border-radius:28px;padding:20px;box-shadow:0 18px 50px #0006}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;opacity:.8}.hero h1{font-size:32px;line-height:1.02;margin:9px 0}.hero p{line-height:1.45;color:#eeeaff}
-.dooffy{display:flex;gap:12px;align-items:center;background:#ffffff18;border:1px solid #ffffff25;border-radius:18px;padding:11px;margin-top:14px}.dooffy-avatar{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,#fff,#d9d3ff);display:grid;place-items:center;color:#4d36bd;font-size:25px;font-weight:900;flex:none}.dooffy small{display:block;opacity:.75;margin-bottom:2px}
-.challenge{margin-top:16px;background:#fff;color:#111525;border-radius:21px;padding:16px}.timer{font-size:29px;font-weight:950;margin:8px 0 12px}.btn{border:0;border-radius:15px;padding:13px 15px;font-weight:900;cursor:pointer;width:100%}.primary{background:#111525;color:#fff}.secondary{background:#273451;color:#fff}.green{background:var(--accent2);color:#061613;margin-top:9px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.card{background:var(--card);border:1px solid #222d49;border-radius:20px;padding:15px}.big{font-size:27px;font-weight:950}.muted{color:var(--muted);font-size:13px}.section{margin-top:21px}.section h2{font-size:18px;margin:0 0 10px}.rank{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #202a42}.rank:last-child{border:0}.avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:#2a3656;font-weight:900}.score{margin-left:auto;font-weight:900}.friendrow{display:flex;gap:8px}.friend{flex:1;text-align:center;background:var(--card);border:1px solid #222d49;border-radius:17px;padding:12px}.friend .avatar{margin:auto auto 6px}.feed{display:grid;gap:10px}.post{background:var(--card);border:1px solid #222d49;border-radius:20px;padding:14px}.posthead{display:flex;align-items:center;gap:9px}.postbody{margin:12px 0;line-height:1.4}.actions{display:flex;gap:8px}.actions button{flex:1;border:0;border-radius:12px;padding:9px;background:var(--card2);color:var(--text);font-weight:800}
-textarea{width:100%;min-height:90px;background:#0d1424;color:var(--text);border:1px solid #293652;border-radius:14px;padding:12px;resize:vertical}input[type=file]{width:100%;margin:10px 0}.modal{position:fixed;inset:0;background:#0009;display:none;align-items:flex-end;z-index:10}.modal.open{display:flex}.sheet{width:100%;max-width:520px;margin:auto;background:#11192a;border-radius:24px 24px 0 0;padding:18px;border:1px solid #293652}.nav{position:fixed;left:0;right:0;bottom:0;background:#0b1120ee;backdrop-filter:blur(12px);border-top:1px solid #222c45;z-index:5}.navin{max-width:520px;margin:auto;display:flex;justify-content:space-around;padding:9px}.nav button{background:none;border:0;color:#aab3ca;font-size:11px}.toast{position:fixed;left:50%;bottom:78px;transform:translate(-50%,20px);background:#fff;color:#111525;padding:11px 16px;border-radius:999px;font-weight:900;opacity:0;transition:.2s;z-index:20;white-space:nowrap}.toast.on{opacity:1;transform:translate(-50%,0)}
-.onboard{position:fixed;inset:0;background:#080c17;z-index:30;display:grid;place-items:center;padding:22px}.onboard.hide{display:none}.onboardbox{max-width:480px;text-align:center}.onboardbox h1{font-size:38px;margin:10px 0}.choice{display:grid;gap:9px;margin:18px 0}.choice button{background:var(--card);color:var(--text);border:1px solid #293652;border-radius:15px;padding:13px;font-weight:800}.choice button.selected{border-color:var(--accent);background:#241b50}
-@media(min-width:700px){body{padding-top:15px}.nav{bottom:15px}.navin{border-radius:18px}}
+:root{--bg:#080c17;--card:#12192b;--text:#fff;--muted:#9ba7c0;--primary:#7c5cff;--secondary:#00d4ff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#080c17,#10172a);color:var(--text);font-family:Arial,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer;border:0}.app{max-width:520px;margin:auto;min-height:100vh;padding-bottom:90px}
+header{position:sticky;top:0;z-index:20;background:rgba(8,12,23,.92);backdrop-filter:blur(12px);padding:16px;border-bottom:1px solid #202944}
+.logo{display:flex;align-items:center;justify-content:space-between}.logo h1{margin:0;font-size:25px}.logo span{color:var(--secondary)}.points{background:#18213a;padding:8px 12px;border-radius:20px;fo[...]
+.hero{margin:16px;padding:20px;border-radius:24px;background:linear-gradient(145deg,#7658ff,#432bb5);box-shadow:0 15px 40px rgba(77,51,200,.25)}
+.dooffy{display:flex;gap:14px;align-items:center}.dooffy-avatar{width:75px;height:75px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:42px;flex-shri[...]
+.hero h2{margin:0 0 7px;font-size:21px}.hero p{margin:0;opacity:.9;line-height:1.4}
+.card{margin:16px;padding:18px;background:var(--card);border:1px solid #202944;border-radius:20px}.card h3{margin-top:0}
+label{display:block;margin:14px 0 7px;color:var(--muted);font-size:14px}
+select,input{width:100%;padding:13px;border-radius:12px;border:1px solid #2a3554;background:#0d1424;color:#fff;outline:none}
+.primary{width:100%;margin-top:16px;padding:14px;border-radius:14px;background:linear-gradient(90deg,var(--primary),#9b67ff);color:#fff;font-weight:bold}
+.secondary{width:100%;padding:13px;border-radius:14px;background:#202b47;color:#fff;font-weight:bold}
+.challenge{background:#fff;color:#111827;border-radius:20px;padding:20px;margin-top:15px}.challenge .tag{display:inline-block;background:#ece8ff;color:#6047d9;padding:6px 10px;border-radius:20px;font-[...]
+.challenge h4{font-size:21px;margin:14px 0 8px}.challenge p{line-height:1.45}.challenge button{width:100%;padding:13px;border-radius:12px;background:#111827;color:#fff;font-weight:bold}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);background:rgba(10,15,28,.96);border-top:1px solid #202944;display:grid;grid-template-columns:repeat(3,1fr);paddi[...]
+.nav button{background:none;color:#9ba7c0;padding:8px}.nav button.active{color:#fff}.profile{text-align:center}
+.profile-avatar{width:90px;height:90px;margin:auto;border-radius:50%;background:linear-gradient(145deg,#7658ff,#00d4ff);display:flex;align-items:center;justify-content:center;font-size:48px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.stat{background:#18213a;padding:12px 5px;border-radius:14px}.stat strong{display:block;font-size:20px}.stat span{color[...]
+.toast{position:fixed;top:75px;left:50%;transform:translateX(-50%);background:#18213a;border:1px solid #34415f;padding:12px 18px;border-radius:30px;z-index:50;display:none}
+.section{display:none}.section.active{display:block}
 </style>
 </head>
 <body>
-<div id="onboard" class="onboard">
-  <div class="onboardbox">
-    <div class="dooffy-avatar" style="margin:auto">⚡</div>
-    <h1>Bienvenue sur Défi24</h1>
-    <p class="muted">24 heures. 1 défi. 1 action réelle.</p>
-    <div class="choice" id="choices">
-      <button data-v="fun">🎉 M'amuser</button>
-      <button data-v="social">👥 Rencontrer / échanger</button>
-      <button data-v="courage">🔥 Sortir de ma zone de confort</button>
-      <button data-v="wellbeing">🌱 Faire du bien</button>
-      <button data-v="creative">🎨 Créer quelque chose</button>
-    </div>
-    <button class="btn primary" id="start">Commencer</button>
-  </div>
-</div>
+<div class="app">
+<header><div class="logo"><h1>Défi<span>24</span></h1><div class="points">⭐ <span id="points">0</span></div></div></header>
 
-<main class="app">
-<header class="top"><div class="logo">⚡ Défi24</div><div class="pill">🔥 <span id="streak">0</span> jour</div></header>
-
-<section class="hero">
-  <div class="eyebrow">Défi du jour · <span id="challengeNo">001</span></div>
-  <h1 id="challengeTitle">Ton défi arrive.</h1>
-  <p id="challengeText">Choisis ton univers pour recevoir un défi adapté.</p>
-  <div class="dooffy">
-    <div class="dooffy-avatar">⚡</div>
-    <div><small>Dooffy</small><b id="dooffyText">Je suis là pour te faire passer à l'action.</b></div>
-  </div>
-  <div class="challenge">
-    <div class="muted">Temps restant</div>
-    <div class="timer" id="timer">23:59:59</div>
-    <button class="btn primary" id="complete">✅ J'ai relevé le défi</button>
-    <button class="btn green" id="proof">📸 Ajouter une preuve</button>
-  </div>
+<section id="home" class="section active">
+<div class="hero"><div class="dooffy"><div class="dooffy-avatar">🤖</div><div><h2 id="dooffyTitle">Salut 👋 Moi c'est Dooffy !</h2><p id="dooffyMessage">Je vais te proposer des défis qui te corre[...]
+<div class="card"><h3>🎯 Ton défi du moment</h3><div class="challenge"><span class="tag" id="challengeTag">PERSONNALISÉ</span><h4 id="challengeTitle">Complète ton profil pour recevoir ton premier[...]
 </section>
 
-<div class="grid">
-  <div class="card"><div class="big" id="points">0</div><div class="muted">XP</div></div>
-  <div class="card"><div class="big" id="level">Niveau 1</div><div class="muted">progression</div></div>
-</div>
-
-<section class="section">
-<h2>🏆 Classement</h2>
-<div class="card">
-  <div class="rank"><div class="avatar">L</div><b>Léa</b><span class="score">2 910</span></div>
-  <div class="rank"><div class="avatar">M</div><b>Max</b><span class="score">2 540</span></div>
-  <div class="rank"><div class="avatar">G</div><b>Toi</b><span class="score" id="rankpoints">0</span></div>
+<section id="personalization" class="section">
+<div class="card"><h2>🧠 Personnalise Dooffy</h2><p style="color:var(--muted)">Plus tu me donnes d'informations, plus les défis seront adaptés à toi.</p>
+<label>Ton type de défi préféré</label><select id="preference"><option value="fun">😂 Fun / drôle</option><option value="sport">🏃 Sport</option><option value="social">👥 Social</option><op[...]
+<label>Ton niveau</label><select id="level"><option value="easy">🟢 Tranquille</option><option value="medium">🟠 Motivé</option><option value="hard">🔴 Hardcore</option></select>
+<label>Ce que tu veux améliorer</label><select id="goal"><option value="fun">M'amuser davantage</option><option value="confidence">Prendre confiance</option><option value="social">Rencontrer des gens[...]
+<button class="primary" onclick="saveProfile()">✨ Créer mes défis personnalisés</button>
 </div>
 </section>
 
-<section class="section">
-<h2>👥 Tes amis</h2>
-<div class="friendrow">
- <div class="friend"><div class="avatar">L</div><b>Léa</b><div class="muted">🔥14</div></div>
- <div class="friend"><div class="avatar">M</div><b>Max</b><div class="muted">🔥11</div></div>
- <div class="friend"><div class="avatar">S</div><b>Sam</b><div class="muted">🔥9</div></div>
+<section id="profile" class="section">
+<div class="card profile"><div class="profile-avatar">🤖</div><h2>Mon profil</h2><p style="color:var(--muted)">Ton profil Défi24</p>
+<div class="stats"><div class="stat"><strong id="statPoints">0</strong><span>Points</span></div><div class="stat"><strong id="statChallenges">0</strong><span>Défis</span></div><div class="stat"><stro[...]
+<div class="card"><h3>⚙️ Mes préférences</h3><p id="profilePreference">Non définies</p><p id="profileLevel">Non défini</p><p id="profileGoal">Non défini</p><button class="secondary" onclick="[...]
+</section>
 </div>
-</section>
 
-<section class="section">
-<h2>🎥 Défis relevés</h2>
-<div id="feed" class="feed"><div class="post"><div class="muted">Le feed se construit avec tes défis et ceux de la communauté.</div></div></div>
-</section>
-
-<section class="section">
-<div class="card">
-<h2>🧠 Mode anti-scroll</h2>
-<p class="muted">Défi24 n'est pas conçu pour te garder à scroller. L'objectif est de quitter l'écran et de faire quelque chose dans la vraie vie.</p>
-<button class="btn secondary" id="focus">🚀 Passer à l'action</button>
-</div>
-</section>
-</main>
-
-<nav class="nav"><div class="navin">
-<button onclick="scrollToTop()">🏠<br>Accueil</button>
-<button onclick="openCreate()">➕<br>Créer</button>
-<button onclick="scrollToFeed()">🎥<br>Feed</button>
-<button onclick="showProfile()">👤<br>Profil</button>
-</div></nav>
-
-<div id="modal" class="modal"><div class="sheet">
-<h2 id="modalTitle">Créer</h2>
-<p class="muted">Ajoute un défi ou une preuve. Les données restent locales dans ce MVP.</p>
-<textarea id="modalText" placeholder="Écris ton idée..."></textarea>
-<input id="photo" type="file" accept="image/*" capture="environment">
-<button class="btn primary" id="modalAction">Publier</button>
-<button class="btn secondary" style="margin-top:8px" onclick="closeModal()">Fermer</button>
-</div></div>
-<div id="toast" class="toast"></div>
+<div class="toast" id="toast"></div>
+<nav class="nav"><button id="navHome" class="active" onclick="showSection('home')">🏠<br>Accueil</button><button id="navPersonalization" onclick="showSection('personalization')">🧠<br>Dooffy</butt[...]
 
 <script>
-const challenges={
- fun:[["Le mini imprévu","Fais aujourd'hui une activité amusante que tu n'avais pas prévue.","Trouve un petit moment de fun et raconte-le à quelqu'un."]],
- social:[["Le premier pas","Envoie un message positif à quelqu'un avec qui tu n'as pas parlé depuis longtemps.","Une petite action peut relancer une vraie conversation."]],
- courage:[["Le pas courageux","Fais une petite chose que tu repousses depuis trop longtemps.","Pas besoin d'être énorme : le but est d'agir."]],
- wellbeing:[["Le geste qui compte","Fais aujourd'hui quelque chose de gentil pour une personne qui ne s'y attend pas.","Fais-le sans attendre de retour."]],
- creative:[["10 minutes de création","Crée quelque chose pendant 10 minutes : dessin, photo, musique, texte ou objet.","Le résultat n'a pas besoin d'être parfait."]]
+let profile=JSON.parse(localStorage.getItem("defi24Profile")||"null");
+let points=Number(localStorage.getItem("defi24Points")||0);
+let challenges=Number(localStorage.getItem("defi24Challenges")||0);
+
+const challengesData={
+fun:{easy:{title:"Fais rire quelqu'un aujourd'hui 😂",description:"Envoie à un ami quelque chose qui va vraiment le faire sourire.",tag:"FUN"},medium:{title:"Fais une action complètement spontané[...]
+sport:{easy:{title:"Marche 20 minutes 🚶",description:"Mets tes écouteurs, sors et marche pendant au moins 20 minutes.",tag:"SPORT"},medium:{title:"Fais 30 minutes d'activité 🏃",description:"Co[...]
+social:{easy:{title:"Parle à quelqu'un que tu connais peu 👋",description:"Commence une vraie conversation avec une personne avec qui tu échanges rarement.",tag:"SOCIAL"},medium:{title:"Propose un[...]
+creative:{easy:{title:"Crée quelque chose en 15 minutes 🎨",description:"Dessin, photo, vidéo, musique, texte... aucune règle.",tag:"CRÉATIF"},medium:{title:"Crée et partage quelque chose 📸"[...]
+discovery:{easy:{title:"Découvre un nouvel endroit 🌍",description:"Va dans un endroit de ta ville où tu n'es jamais allé.",tag:"DÉCOUVERTE"},medium:{title:"Fais quelque chose pour la première [...]
+courage:{easy:{title:"Fais une petite chose que tu repousses 💪",description:"Choisis une chose simple que tu repousses depuis quelquetemps et fais-la.",tag:"COURAGE"},medium:{title:"Ose faire quel[...]
 };
-let state=JSON.parse(localStorage.getItem("defi24_mvp")||"null")||{theme:null,points:0,streak:0,done:false,posts:[],challengeDay:null};
-const $=id=>document.getElementById(id);
-function save(){localStorage.setItem("defi24_mvp",JSON.stringify(state))}
-function toast(t){$("toast").textContent=t;$("toast").classList.add("on");clearTimeout(window._toast);window._toast=setTimeout(()=>$("toast").classList.remove("on"),1800)}
-function render(){
- $("points").textContent=state.points.toLocaleString("fr-FR");$("rankpoints").textContent=state.points.toLocaleString("fr-FR");
- $("streak").textContent=state.streak;$("level").textContent="Niveau "+(Math.floor(state.points/500)+1);
- const key=state.theme||"fun", c=challenges[key][0]; $("challengeTitle").textContent=c[0];$("challengeText").textContent=c[1];
- $("dooffyText").textContent=state.done?"Bravo ! Maintenant, profite de ta victoire et reviens demain.":"Je te propose une action simple. À toi de jouer.";
- $("complete").disabled=state.done;$("complete").textContent=state.done?"🎉 Défi validé":"✅ J'ai relevé le défi";
- $("feed").innerHTML=state.posts.length?state.posts.map((p,i)=>`<div class="post"><div class="posthead"><div class="avatar">G</div><b>Toi</b><span class="muted">· aujourd'hui</span></div><div class="postbody">${escapeHtml(p.text)}</div><div class="actions"><button onclick="like(${i})">❤️ ${p.likes}</button><button onclick="sharePost(${i})">🚀 Partager</button></div></div>`).join(""):'<div class="post"><div class="muted">Le feed se construit avec tes défis et ceux de la communauté.</div></div>';
- save();
+
+function showSection(section){
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.getElementById(section).classList.add("active");
+document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+if(section==="home")document.getElementById("navHome").classList.add("active");
+if(section==="personalization")document.getElementById("navPersonalization").classList.add("active");
+if(section==="profile")document.getElementById("navProfile").classList.add("active");
+updateProfileDisplay();
 }
-function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-function newDay(){
- const today=new Date().toISOString().slice(0,10);
- if(state.challengeDay!==today){state.challengeDay=today;state.done=false;save()}
+
+function saveProfile(){
+profile={preference:document.getElementById("preference").value,level:document.getElementById("level").value,goal:document.getElementById("goal").value};
+localStorage.setItem("defi24Profile",JSON.stringify(profile));
+generateChallenge();showToast("✨ Dooffy a compris ton profil !");
+setTimeout(()=>showSection("home"),700);
 }
-$("choices").querySelectorAll("button").forEach(b=>b.onclick=()=>{ $("choices").querySelectorAll("button").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");state.theme=b.dataset.v;});
-$("start").onclick=()=>{if(!state.theme){toast("Choisis un univers 🙂");return}state.challengeDay=new Date().toISOString().slice(0,10);save();$("onboard").classList.add("hide");render();toast("Dooffy t'attend ⚡")};
-$("complete").onclick=()=>{if(state.done)return;state.done=true;state.points+=250;state.streak++;state.posts.unshift({text:"J'ai relevé mon défi du jour ⚡",likes:0});render();toast("🎉 +250 XP ! Défi validé")};
-$("proof").onclick=()=>openProof();
-$("focus").onclick=()=>{document.body.style.overflow="hidden";toast("📵 Pose le téléphone. Passe à l'action !");setTimeout(()=>document.body.style.overflow="",2200)};
-function openProof(){ $("modalTitle").textContent="📸 Preuve du défi";$("modalText").placeholder="Ajoute une courte description de ta preuve...";$("modalAction").textContent="Ajouter au feed";$("modalAction").onclick=publishProof;$("modal").classList.add("open")}
-function openCreate(){ $("modalTitle").textContent="➕ Créer un défi";$("modalText").placeholder="Ex : Fais une photo d'un endroit que tu n'as jamais remarqué...";$("modalAction").textContent="Créer";$("modalAction").onclick=publishCreate;$("modal").classList.add("open")}
-function closeModal(){$("modal").classList.remove("open");$("modalText").value="";$("photo").value=""}
-function publishProof(){const text=$("modalText").value.trim()||"J'ai relevé mon défi du jour ⚡";state.posts.unshift({text,likes:0});closeModal();render();toast("📸 Preuve ajoutée")}
-function publishCreate(){const text=$("modalText").value.trim();if(!text){toast("Écris ton défi");return}state.posts.unshift({text:"Défi créé : "+text,likes:0});closeModal();render();toast("⚡ Défi créé")}
-function like(i){state.posts[i].likes++;render()}
-async function sharePost(i){const text=state.posts[i].text+" — Défi24";try{if(navigator.share)await navigator.share({title:"Défi24",text});else{await navigator.clipboard.writeText(text);toast("Texte copié")}}catch(e){}}
-function scrollToTop(){window.scrollTo({top:0,behavior:"smooth"})}
-function scrollToFeed(){$("feed").scrollIntoView({behavior:"smooth",block:"center"})}
-function showProfile(){toast("👤 Profil : "+state.points+" XP · Niveau "+(Math.floor(state.points/500)+1))}
-let sec=86399;setInterval(()=>{sec=Math.max(0,sec-1);const h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s=sec%60;$("timer").textContent=[h,m,s].map(v=>String(v).padStart(2,"0")).join(":")},1000);
-newDay();if(state.theme)$("onboard").classList.add("hide");render();
+
+function generateChallenge(){
+if(!profile)return;
+const data=challengesData[profile.preference]?.[profile.level]||challengesData.fun.easy;
+document.getElementById("challengeTag").textContent=data.tag;
+document.getElementById("challengeTitle").textContent=data.title;
+document.getElementById("challengeDescription").textContent=data.description;
+document.getElementById("dooffyTitle").textContent="J'ai préparé ton défi 😎";
+document.getElementById("dooffyMessage").textContent="Je l'ai choisi selon tes préférences. À toi de jouer !";
+}
+
+function completeChallenge(){
+if(!profile){showToast("🧠 Personnalise d'abord ton profil !");showSection("personalization");return;}
+points+=24;challenges++;
+localStorage.setItem("defi24Points",points);localStorage.setItem("defi24Challenges",challenges);
+updateProfileDisplay();showToast("🎉 Défi terminé ! +24 points");setTimeout(generateChallenge,800);
+}
+
+function updateProfileDisplay(){
+document.getElementById("points").textContent=points;
+document.getElementById("statPoints").textContent=points;
+document.getElementById("statChallenges").textContent=challenges;
+document.getElementById("statLevel").textContent=Math.floor(points/100)+1;
+if(profile){
+const names={fun:"😂 Fun / drôle",sport:"🏃 Sport",social:"👥 Social",creative:"🎨 Créatif",discovery:"🌍 Découverte",courage:"🔥 Sortir de ma zone de confort"};
+const levels={easy:"🟢 Tranquille",medium:"🟠 Motivé",hard:"🔴 Hardcore"};
+const goals={fun:"M'amuser davantage",confidence:"Prendre confiance",social:"Rencontrer des gens",activity:"Bouger davantage",creativity:"Être plus créatif",adventure:"Vivre plus d'expériences"};
+document.getElementById("profilePreference").textContent="🎯 Préférence : "+names[profile.preference];
+document.getElementById("profileLevel").textContent="⚡ Niveau : "+levels[profile.level];
+document.getElementById("profileGoal").textContent="🚀 Objectif : "+goals[profile.goal];
+document.getElementById("preference").value=profile.preference;
+document.getElementById("level").value=profile.level;
+document.getElementById("goal").value=profile.goal;
+}
+}
+
+function showToast(message){
+const toast=document.getElementById("toast");toast.textContent=message;toast.style.display="block";
+setTimeout(()=>toast.style.display="none",2200);
+}
+updateProfileDisplay();if(profile)generateChallenge();
 </script>
 </body>
 </html>
